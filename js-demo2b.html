@@ -11,23 +11,16 @@
    $(document).ready(function () {
             $("#tableLoading").hide();
             $("#btn").click(function (event) {
-                //Use toggle to avoid loading too many times after click the button over again.
                 $("#tableLoading").toggle();
-
-                //add elements within table
                 $('#tableLoading').append('<caption></caption>');
                 $('#tableLoading').append('<thead></thead>');
                 $('#tableLoading').append('<tbody></tbody>');
                 $('#tableLoading').append('<tfoot></tfoot>');
-
-                //add elements within thead tag
                 $('#tableLoading thead').append('<tr id="showheading"></tr>');
 
-                //add elements within tbody
                 $('#tableLoading tbody').append('<tr id="showcalories"></tr>');
                 $('#tableLoading tbody').append('<tr id="showfat"></tr>');
 
-                //add element within tfoot
                 $('#tableLoading tfoot').append('<tr id="showven"></tr>');
 
 
