@@ -8,11 +8,55 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-       $("#btn").click(function(event){
+   $(document).ready(function () {
+            $("#tableLoading").hide();
+            $("#btn").click(function (event) {
+                //Use toggle to avoid loading too many times after click the button over again.
+                $("#tableLoading").toggle();
 
-       });
-    });
+                //add elements within table
+                $('#tableLoading').append('<caption></caption>');
+                $('#tableLoading').append('<thead></thead>');
+                $('#tableLoading').append('<tbody></tbody>');
+                $('#tableLoading').append('<tfoot></tfoot>');
+
+                //add elements within thead tag
+                $('#tableLoading thead').append('<tr id="showheading"></tr>');
+
+                //add elements within tbody
+                $('#tableLoading tbody').append('<tr id="showcalories"></tr>');
+                $('#tableLoading tbody').append('<tr id="showfat"></tr>');
+
+                //add element within tfoot
+                $('#tableLoading tfoot').append('<tr id="showven"></tr>');
+
+
+                $.getJSON('data.json', function (data) {
+                    $('#tableLoading caption').append(data.title);
+
+                    for (var i = 1; i < 6; i++) {
+                        $('#showheading').append('<th></th>');
+                        $('#showcalories').append('<td></td>');
+                        $('#showfat').append('<td></td>');
+                        $('#showven').append('<td></td>');
+                        if (i == 1) {
+                            $('#showheading th').append(data['heading']);
+                            $('#showcalories td').append(data['subheadcal']);
+                            $('#showfat td').append(data['subheadfat']);
+                            $('#showven td').append(data['subheadven']);
+                        } else {
+                            $('#showheading th:nth-child(' + i + ')').append(data['head' + (i - 1)]);
+                            $('#showcalories td:nth-child(' + i + ')').append(data['cal' + (i - 1)]);
+                            $('#showfat td:nth-child(' + i + ')').append(data['fat' + (i - 1)]);
+                            $('#showven td:nth-child(' + i + ')').append(data['ven' + (i - 1)]);
+                        }
+                    }
+
+                })
+
+            });
+
+        });
  </script>
 </head> 	
 <body>
@@ -33,7 +77,7 @@
   <h1>My Second Heading</h1>
   <p>My Second paragraph.</p>
 
-  <table>
+  <table id="tableLoading">
     <!--<caption></caption>
     <thead>
         <tr id="showheading">
@@ -74,7 +118,7 @@
     <input type = "button" id = "btn" value = "Load Data" style="margin-top:20px;" />
 </main>
 
-<footer>&copy; Copyright 2020</footer>
+<footer>&copy; Copyright 2024</footer>
 
 </div>
 
